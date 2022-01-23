@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FFMpegCore" Version="4.7.0" />
+    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.19.0" />
+  </ItemGroup>
+
+</Project>
