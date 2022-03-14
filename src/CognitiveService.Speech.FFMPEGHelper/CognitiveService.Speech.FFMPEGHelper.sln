@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CognitiveService.Speech.FFMPEGHelper", "CognitiveService.Speech.FFMPEGHelper\CognitiveService.Speech.FFMPEGHelper.csproj", "{69C1461F-EF6D-4E52-A20F-16ADE30DB0F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CognitiveService.Speech.FFMPEGHelper.Sample", "CognitiveService.Speech.FFMPEGHelper.Sample\CognitiveService.Speech.FFMPEGHelper.Sample.csproj", "{782FAFB2-9FF7-438C-B56A-A3C443D5E3F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{69C1461F-EF6D-4E52-A20F-16ADE30DB0F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C1461F-EF6D-4E52-A20F-16ADE30DB0F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C1461F-EF6D-4E52-A20F-16ADE30DB0F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{782FAFB2-9FF7-438C-B56A-A3C443D5E3F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{782FAFB2-9FF7-438C-B56A-A3C443D5E3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{782FAFB2-9FF7-438C-B56A-A3C443D5E3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{782FAFB2-9FF7-438C-B56A-A3C443D5E3F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

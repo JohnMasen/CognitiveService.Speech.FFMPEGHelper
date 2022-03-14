@@ -1,5 +1,6 @@
 ﻿using FFMpegCore;
 using FFMpegCore.Pipes;
+using Microsoft.CognitiveServices.Speech.Audio;
 using System;
 using System.IO;
 using System.IO.Pipes;
@@ -9,7 +10,10 @@ namespace CognitiveService.Speech.FFMPEGHelper
 {
     public class SpeechFFMPEGHelper
     {
-        public StreamCallBackHelper CreateFFMPEGLoader(string filepath,string ffmpegPath,int? pan, string panOutputDefinitions)
+        private const string AUDIO_CODEC = "pcm_s16le";
+        private const string AUDIO_FORMAT = "s16le";
+        private const int SAMPLE_RATE = 16000;
+        public static PullAudioInputStream CreateFFMPEGLoader(string filepath,string ffmpegPath,int? pan, string panOutputDefinitions)
         {
             FFOptions options = new FFOptions();
             if (ffmpegPath != null)
@@ -30,24 +34,23 @@ namespace CognitiveService.Speech.FFMPEGHelper
             },
             options));
         }
-        public StreamCallBackHelper CreateFFMPEGLoader(FFMpegArguments args,Action<FFMpegArgumentOptions> outputCreationCallBack,FFOptions options)
+        public static PullAudioInputStream CreateFFMPEGLoader(FFMpegArguments args,Action<FFMpegArgumentOptions> outputCreationCallBack,FFOptions options)
         {
-            AnonymousPipeServerStream serverStream = new AnonymousPipeServerStream(PipeDirection.Out);
-
-            StreamPipeSink sink = new StreamPipeSink(serverStream);
-            var p = args.OutputToPipe(sink, opt =>
-               {
-                   opt.WithAudioCodec("pcm_s16le")
-                        .WithAudioSamplingRate(16000)
-                        .ForceFormat("s16le");
-                   outputCreationCallBack?.Invoke(opt);
-               });
+            var helper = new StreamPipesHelper();
+            
             Task.Run(() =>
             {
+                var p = args.OutputToPipe(helper.InputStream, opt =>
+                {
+                    opt.WithAudioCodec(AUDIO_CODEC)
+                         .WithAudioSamplingRate(SAMPLE_RATE)
+                         .ForceFormat(AUDIO_FORMAT);
+                    outputCreationCallBack?.Invoke(opt);
+                });
                 p.ProcessSynchronously(true, options);
-                serverStream.Close();
+                helper.CloseInputStream();
             });
-            return new StreamCallBackHelper(new AnonymousPipeClientStream(PipeDirection.In, serverStream.GetClientHandleAsString()));
+            return helper.OutputStream;
         }
     }
 }
